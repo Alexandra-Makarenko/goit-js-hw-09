@@ -1,4 +1,5 @@
 import flatpickr from "flatpickr";
+import Notiflix from 'notiflix';
 // Дополнительный импорт стилей
 import "flatpickr/dist/flatpickr.min.css";
 
@@ -23,7 +24,7 @@ const options = {
           refs.startButton.removeAttribute('disabled')
            console.log(selectedDates[0].getTime());
         } else {
-            window.alert("Please choose a date in the future");
+            Notiflix.Notify.warning("Please choose a date in the future");
             refs.startButton.setAttribute('disabled','disabled')
       }      
      
@@ -50,7 +51,7 @@ function startTimer() {
     refs.secondsTimer.textContent = result.seconds;     
     } else {
       clearInterval(timerId);
-     window.alert("Time is up!");
+     Notiflix.Notify.warning("Time is up!");
   }
     
   }, 1000);
