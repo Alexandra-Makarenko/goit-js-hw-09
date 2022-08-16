@@ -14,7 +14,8 @@ function onFormSubmit(e) {
   const amount = Number(amountInput.value);
   let firstdelay = Number(delayInput.value);
   const step = Number(stepInput.value);
-  for (let i = 0; i < amount; i++) {
+  if (amount > 0 && firstdelay > 0 && step > 0) {
+    for (let i = 0; i < amount; i++) {
          createPromise(i+1, firstdelay).then(({ position, delay }) => {
       Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
     }).catch(({ position, delay }) => {
@@ -22,6 +23,10 @@ function onFormSubmit(e) {
     });
     firstdelay += step;
   }
+  } else {
+    Notiflix.Notify.failure('Please, insert another values');
+  }
+  
 }
 
 function createPromise(position, delay) {
