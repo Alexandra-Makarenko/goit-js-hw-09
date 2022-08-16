@@ -4,7 +4,7 @@ import Notiflix from 'notiflix';
 import "flatpickr/dist/flatpickr.min.css";
 
 const refs = {
-    input: document.querySelector('input[type="text"]'),
+  input: document.querySelector('#datetime-picker'),
   startButton: document.querySelector('button[data-start]'),
   daysTimer: document.querySelector('[data-days]'),
   hoursTimer: document.querySelector('[data-hours]'),
@@ -22,12 +22,10 @@ const options = {
     onClose(selectedDates) {
         if (selectedDates[0].getTime() > options.defaultDate.getTime()) {
           refs.startButton.removeAttribute('disabled')
-           console.log(selectedDates[0].getTime());
         } else {
             Notiflix.Notify.warning("Please choose a date in the future");
-            refs.startButton.setAttribute('disabled','disabled')
-      }      
-     
+          refs.startButton.setAttribute("disabled", "disabled");
+         }          
   },
 };
 
@@ -44,19 +42,19 @@ function startTimer() {
     currentDate = new Date().getTime();
     let result = convertMs(choosenDate - currentDate);
     if (choosenDate > currentDate) {
-    console.log(choosenDate - currentDate);
     refs.daysTimer.textContent = result.days;
     refs.hoursTimer.textContent = result.hours;
     refs.minutesTimer.textContent = result.minutes;
     refs.secondsTimer.textContent = result.seconds;     
     } else {
       clearInterval(timerId);
-     Notiflix.Notify.warning("Time is up!");
-  }
+   }
     
   }, 1000);
   
-  
+  refs.startButton.setAttribute("disabled", "true");
+  refs.input.nextSibling.setAttribute("disabled", "true");
+ 
 }
 
 
